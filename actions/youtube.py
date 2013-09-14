@@ -5,8 +5,8 @@ import re, urllib2, json
 
 class Youtube(Action):
 	def recognize(self, data):
-		regex = '(http(?:s?)://)(?:www\.)?youtu(?:be\.com/watch\?v=|\.be/)(\w*)(&(amp;)?[\w\?=]*)'
-		regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'>]+)'
+
+		regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\ >]+)'
 		
 		m = re.findall(regex, data.msg)
 
@@ -19,6 +19,7 @@ class Youtube(Action):
 		api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc' % self.data[0][7]
 		json_encoded = ""
 		
+		print api_url
 		try:
 			req = urllib2.Request(api_url, headers={'User-Agent' : "Tonton bot"}) 
 			con = urllib2.urlopen(req)

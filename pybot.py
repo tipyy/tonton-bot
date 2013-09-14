@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf8 -*-
 
-import socket, string, sys
+import socket, string, sys, time
 
 from pybotapplication import *
 from actionListFactory import *
@@ -12,7 +12,6 @@ from PyIC.pyic import *
 # Loading Application
 app = PyBotApplication()
 
-# todo : put connection in app
 # Loading IRC connection
 connection = irc_client(app.settings.pseudo, app.settings.server, app.settings.port, False, app.settings.pseudo, app.settings.pseudo, app.settings.pseudo, None, None)
 connection.join(app.settings.channel, None)
@@ -21,23 +20,31 @@ connection.sendmsg(app.settings.channel, app.settings.helloMessage)
 # Loading action list
 actionList = ActionListFactory().create(app)
 
+def send_messages(messages):
+	if messages != "":
+		for line in messages.split('\r\n'):
+			connection.sendmsg(app.settings.channel, line)
+			time.sleep(2)
+
 # Starting bot
 while app.isRunning:
-    data = connection.getmsg()
-       
-    for action in actionList:
-    	if action.recognize(data):
-			result = action.execute()
-			for line in result.split('\r\n'):
-				connection.sendmsg(app.settings.channel, line)
+	data = None
+	data = connection.getmsg()
 
-	if data.msg == '!help':
-		connection.sendmsg(app.settings.channel, "Listes des commandes actives :")		
+	print data.msg
+
+	for action in actionList:
+		if action.recognize(data):
+			print action.getDescription()
+			result = action.execute()
+			send_messages(result)
+
+	if data.msg == '!help' and data.by != app.settings.pseudo:
+		messages = "Listes des commandes actives pour \r\n"
 		for action in actionList:
 			if action.command != None and action.security.checkSecurity(data):
-				connection.sendmsg(app.settings.channel, action.getDescription())
- 
-#    print data.msg
+				messages += "%s\r\n" % action.getDescription()
+		send_messages(messages)
 
 connection.quit(app.settings.quitMessage)
 exit()
