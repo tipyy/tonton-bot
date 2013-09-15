@@ -29,11 +29,6 @@ class ActionListFactory(object):
 		actionList.append(youtube)
 
 		security = Security()
-		security.addToWhiteList('tonton')
-		google = Google(application, '!google', '@todo', security)
-		actionList.append(google)
-
-		security = Security()
 		nsfw = NSFWGag(application, 'nsfw_gag', 'Signale les posts 9gag NSFW', security)
 		actionList.append(nsfw)
 		
