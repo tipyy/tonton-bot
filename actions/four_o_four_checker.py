@@ -31,5 +31,5 @@ class FourOFourChecker(Action):
 
 		return True
 
-	def execute(self):
+	def execute(self, data):
 		return self.data
