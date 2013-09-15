@@ -3,5 +3,5 @@
 from action import *
 
 class About(Action):
-	def execute(self):
-		return 'un petit bot écrit par TontonDuPirox'
+	def execute(self, data):
+		return '%s: un petit bot écrit par TontonDuPirox' % data.by

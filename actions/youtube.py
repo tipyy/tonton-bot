@@ -15,7 +15,7 @@ class Youtube(Action):
 			return True
 		return False
 
-	def execute(self):
+	def execute(self, data):
 		api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc' % self.data[0][7]
 		json_encoded = ""
 		

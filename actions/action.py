@@ -6,11 +6,9 @@ class Action(object):
 		self.security = security
 				
 	def recognize(self, data):
-		ok = (data.msg == self.command) and (self.security.checkSecurity(data))
+		return (data.msg == self.command) and (self.security.checkSecurity(data))
 
-		return ok
-
-	def execute(self):
+	def execute(self, data):
 		return ""
 		
 	def getDescription(self):

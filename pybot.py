@@ -4,7 +4,6 @@
 import socket, string, sys, time
 
 from pybotapplication import *
-from actionListFactory import *
 from irclib.ircclient import *
 
 from PyIC.pyic import *
@@ -16,9 +15,6 @@ app = PyBotApplication()
 connection = irc_client(app.settings.pseudo, app.settings.server, app.settings.port, False, app.settings.pseudo, app.settings.pseudo, app.settings.pseudo, None, None)
 connection.join(app.settings.channel, None)
 connection.sendmsg(app.settings.channel, app.settings.helloMessage)
-
-# Loading action list
-actionList = ActionListFactory().create(app)
 
 def send_messages(messages):
 	if messages != "":
@@ -33,18 +29,18 @@ while app.isRunning:
 
 	print data.msg
 
-	for action in actionList:
+	for action in app.actionList:
 		if action.recognize(data):
 			print action.getDescription()
-			result = action.execute()
+			result = action.execute(data)
 			send_messages(result)
 
-	if data.msg == '!help' and data.by != app.settings.pseudo:
-		messages = "Listes des commandes actives pour \r\n"
-		for action in actionList:
-			if action.command != None and action.security.checkSecurity(data):
-				messages += "%s\r\n" % action.getDescription()
-		send_messages(messages)
+#	if data.msg == '!help' and data.by != app.settings.pseudo:
+#		messages = "Listes des commandes actives pour \r\n"
+#		for action in actionList:
+#			if action.command != None and action.security.checkSecurity(data):
+#				messages += "%s\r\n" % action.getDescription()
+#		send_messages(messages)
 
 connection.quit(app.settings.quitMessage)
 exit()

@@ -8,6 +8,7 @@ from actions.uptime import *
 from actions.ping import *
 from actions.youtube import *
 from actions.quit import *
+from actions.help import *
 from security import *
 
 class ActionListFactory(object):
@@ -43,6 +44,10 @@ class ActionListFactory(object):
 		security = Security()
 		ping = Ping(application, '!ping', 'pong', security)
 		actionList.append(ping)
+
+		security = Security()
+		help = Help(application, '!help', 'Affiche la liste des commandes', security)
+		actionList.append(help)
 
 		security = Security()
 		security.addToWhiteList('tonton')
