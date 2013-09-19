@@ -11,16 +11,20 @@ from PyIC.pyic import *
 # Loading Application
 app = PyBotApplication()
 
-# Loading IRC connection
-connection = irc_client(app.settings.pseudo, app.settings.server, app.settings.port, False, app.settings.pseudo, app.settings.pseudo, app.settings.pseudo, None, None)
-connection.join(app.settings.channel, None)
-connection.sendmsg(app.settings.channel, app.settings.helloMessage)
-
+# Util function
 def send_messages(messages):
+	app.logger.info("Send messages")
+	app.logger.debug(messages)  
 	if messages != "":
 		for line in messages.split('\r\n'):
 			connection.sendmsg(app.settings.channel, line)
-			time.sleep(2)
+			time.sleep(1)
+
+# Loading IRC connection
+connection = irc_client(app.settings.pseudo, app.settings.server, app.settings.port, False, app.settings.pseudo, app.settings.pseudo, app.settings.pseudo, None, None)
+connection.join(app.settings.channel, None)
+app.connected = True
+send_messages(app.settings.helloMessage)
 
 # Starting bot
 while app.isRunning:
@@ -34,13 +38,6 @@ while app.isRunning:
 			print action.getDescription()
 			result = action.execute(data)
 			send_messages(result)
-
-#	if data.msg == '!help' and data.by != app.settings.pseudo:
-#		messages = "Listes des commandes actives pour \r\n"
-#		for action in actionList:
-#			if action.command != None and action.security.checkSecurity(data):
-#				messages += "%s\r\n" % action.getDescription()
-#		send_messages(messages)
 
 connection.quit(app.settings.quitMessage)
 exit()
