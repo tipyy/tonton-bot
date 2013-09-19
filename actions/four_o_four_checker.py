@@ -17,16 +17,19 @@ class FourOFourChecker(Action):
 			return False
 		url = m[0][0]
 
-		print url
+		self.application.logger.info("URL detected")
+		self.application.logger.debug(url)
 		try:
 			req = urllib2.Request(url, headers={'User-Agent' : "Tonton bot"}) 
 			con = urllib2.urlopen(req)
 			con.read()
-			#urllib2.urlopen(url).read()
+
 			return False
 		except urllib2.HTTPError, e:
+			self.application.logger.info("HTTP error %s" % e.code)
 			self.data = "%s me retourne une erreur %s" % (url, e.code)
 		except urllib2.URLError, e:
+			self.application.logger.info("URL error %s" % e.code)
 			self.data = "je n'ai pas pu attendre l'url %s : %s" % (url, e.reason)
 
 		return True

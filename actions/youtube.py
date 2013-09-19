@@ -12,6 +12,7 @@ class Youtube(Action):
 
 		if m:
 			self.data = m
+			self.application.logger.info("Youtube url detected %s" % m)
 			return True
 		return False
 
@@ -19,16 +20,15 @@ class Youtube(Action):
 		api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc' % self.data[0][7]
 		json_encoded = ""
 		
-		print api_url
 		try:
 			req = urllib2.Request(api_url, headers={'User-Agent' : "Tonton bot"}) 
 			con = urllib2.urlopen(req)
 			json_encoded = con.read()
 					
 			encoded_data = json.loads(json_encoded)
-			print encoded_data
+			self.application.logger.debug(encoded_data)
 		except urllib2.HTTPError, e:
-			print "erreur"
+			self.application.logger.debug("youtube error")
 
 		d = encoded_data['data']['duration']
 		import datetime
@@ -36,4 +36,4 @@ class Youtube(Action):
 		title = "%s / %s / %s" % (encoded_data['data']['uploader'],encoded_data['data']['title'],duration)
 		import unicodedata
 		
-		return unicodedata.normalize('NFKD', title).encode('ascii','ignore')
+		return unicodedata.normalize('NFKD', title).encode('utf8','ignore')

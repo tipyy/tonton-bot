@@ -32,6 +32,8 @@ while app.isRunning:
 	data = connection.getmsg()
 
 	print data.msg
+	app.logger.info("Receive message")
+	app.logger.debug(data.msg)
 
 	for action in app.actionList:
 		if action.recognize(data):

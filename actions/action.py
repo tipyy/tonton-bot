@@ -4,9 +4,12 @@ class Action(object):
 		self.command = command
 		self.description = description
 		self.security = security
-				
+
 	def recognize(self, data):
-		return (data.msg == self.command) and (self.security.checkSecurity(data))
+		if (data.msg == self.command) and (self.security.checkSecurity(data)):
+			self.application.logger.info("Action detected %s" % self.command)
+			return True
+		return False
 
 	def execute(self, data):
 		return ""
