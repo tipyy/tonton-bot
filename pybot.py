@@ -4,27 +4,14 @@
 import socket, string, sys, time
 
 from pybotapplication import *
-from irclib.ircclient import *
-
-from PyIC.pyic import *
+from IRCUtil import *
 
 # Loading Application
 app = PyBotApplication()
 
-# Util function
-def send_messages(messages):
-	app.logger.info("Send messages")
-	app.logger.debug(messages)  
-	if messages != "":
-		for line in messages.split('\r\n'):
-			connection.sendmsg(app.settings.channel, line)
-			time.sleep(1)
-
 # Loading IRC connection
-connection = irc_client(app.settings.pseudo, app.settings.server, app.settings.port, False, app.settings.pseudo, app.settings.pseudo, app.settings.pseudo, None, None)
-connection.join(app.settings.channel, None)
-app.connected = True
-send_messages(app.settings.helloMessage)
+connection = IRCUtil.try_to_connect(app)
+IRCUtil.send_messages(app.settings.channel, connection, app.settings.helloMessage)
 
 # Starting bot
 while app.isRunning:
@@ -39,7 +26,9 @@ while app.isRunning:
 		if action.recognize(data):
 			print action.getDescription()
 			result = action.execute(data)
-			send_messages(result)
+			app.logger.info("Sending messages")
+			app.logger.debug(result)
+			IRCUtil.send_messages(app.settings.channel, connection, result)
 
 connection.quit(app.settings.quitMessage)
 exit()
