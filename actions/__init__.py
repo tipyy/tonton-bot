@@ -1,5 +1,5 @@
 from about import *
-from four_o_four_checker import *
+from http_error import *
 from google import *
 from help import *
 from nsfw_gag import *

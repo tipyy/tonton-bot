@@ -13,7 +13,7 @@ class ActionListFactory(object):
 		actionList.append(about)
 
 		security = Security()
-		fourofour = actions.FourOFourChecker(application, 'fourofour', 'Renvoi un message si une url renvoit une erreur 404', security)
+		fourofour = actions.HttpError(application, 'httperror', 'Renvoi un message si une url renvoit une erreur 404', security)
 		actionList.append(fourofour)
 
 		security = Security()

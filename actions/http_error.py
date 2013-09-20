@@ -3,7 +3,7 @@
 from action import *
 import re, urllib2
 
-class FourOFourChecker(Action):
+class HttpError(Action):
 
 	def recognize(self, data):
 		if not self.security.checkSecurity(data):
@@ -29,7 +29,7 @@ class FourOFourChecker(Action):
 			self.application.logger.info("HTTP error %s" % e.code)
 			self.data = "%s me retourne une erreur %s" % (url, e.code)
 		except urllib2.URLError, e:
-			self.application.logger.info("URL error %s" % e.code)
+			self.application.logger.info("URL error %s" % e.reason)
 			self.data = "je n'ai pas pu attendre l'url %s : %s" % (url, e.reason)
 
 		return True
