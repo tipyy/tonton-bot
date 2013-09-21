@@ -1,4 +1,4 @@
-class Action(object):
+class Plugin(object):
 	def __init__(self, application, command, description, security):
 		self.application = application
 		self.command = command

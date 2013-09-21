@@ -1,10 +1,10 @@
 # -*- coding: utf8 -*-
 
 from bs4 import BeautifulSoup
-from action import *
+from plugin import *
 import re, urllib, urllib2, cookielib
 
-class NSFWGag(Action):
+class NSFWGag(Plugin):
 	def recognize(self, data):
 		if not self.security.checkSecurity(data):
 			return False

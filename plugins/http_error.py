@@ -1,9 +1,9 @@
 # -*- coding: utf8 -*-
 
-from action import *
+from plugin import *
 import re, urllib2
 
-class HttpError(Action):
+class HttpError(Plugin):
 
 	def recognize(self, data):
 		if not self.security.checkSecurity(data):

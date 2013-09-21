@@ -1,6 +1,6 @@
 import time, logging
 import settings
-from actionListFactory import *
+from pluginsFactory import *
 
 # PyBot
 class PyBotApplication(object):
@@ -9,7 +9,7 @@ class PyBotApplication(object):
 		self.connected = False
 		self.startTime = time.time()
 		self.settings = settings
-		self.actionList = ActionListFactory().create(self)
+		self.actionList = PluginsFactory().create(self)
 		
 		# Enabling logger
 		self.logger = logging.getLogger("TontonBotLog")
@@ -19,3 +19,5 @@ class PyBotApplication(object):
 		handler.setFormatter(formatter)
 		self.logger.addHandler(handler)
 
+	def reloadActionList(self):
+		self.actionList = PluginsFactory().create(self)

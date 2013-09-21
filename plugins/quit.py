@@ -1,6 +1,6 @@
-from action import *
+from plugin import *
 
-class Quit(Action):
+class Quit(Plugin):
 	def execute(self, data):
 		self.application.isRunning = False
 		return self.application.settings.quitMessage

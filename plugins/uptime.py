@@ -1,8 +1,8 @@
 import time
 import datetime
-from action import *
+from plugin import *
 
-class Uptime(Action):
+class Uptime(Plugin):
 	def execute(self, data):
 		end_time = time.time()
 		uptime = end_time - self.application.startTime

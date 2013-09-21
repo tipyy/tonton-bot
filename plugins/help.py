@@ -1,13 +1,13 @@
 # -*- coding: utf8 -*-
 
-from action import *
+from plugin import *
 
-class Help(Action):
+class Help(Plugin):
 
 	def execute(self, data):
 		helpString = "Listes des commandes actives pour %s:\r\n" % data.by
 		for action in self.application.actionList:
 			if action.command != None and action.security.checkSecurity(data):
-				helpString += action.getDescription() + '\r\n'
+				helpString += "%s: %s\r\n" % (action.command, action.description)
 		
 		return helpString

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugins>
+	<plugin>
+		<name>About</name>
+		<command>!about</command>
+		<description>Affiche les crédits</description>
+	</plugin>
+	<plugin>
+		<name>HttpError</name>
+		<command>httperror</command>
+		<description>Signale les erreurs HTTP des liens postés</description>
+	</plugin>
+	<plugin>
+		<name>Youtube</name>
+		<command>youtube</command>
+		<description>Nom / Auteur / Durée de la vidéo</description>
+	</plugin>
+	<plugin>
+		<name>NSFWGag</name>
+		<command>nsfw_gag</command>
+		<description>Signale les posts 9gag NSFW</description>
+	</plugin>
+	<plugin>
+		<name>Uptime</name>
+		<command>!uptime</command>
+		<description>Retourne l'uptime de ce bot</description>
+	</plugin>
+	<plugin>
+		<name>Ping</name>
+		<command>!ping</command>
+		<description>pong</description>
+	</plugin>
+	<plugin>
+		<name>Help</name>
+		<command>!help</command>
+		<description>Affiche la liste des commandes</description>
+	</plugin>
+	<plugin>
+		<name>ReloadPlugins</name>
+		<command>!reload</command>
+		<description>Recharge les plugins de ce bot</description>
+		<security>
+			<whitelist>
+				<user>tonton</user>
+			</whitelist>
+		</security>
+	</plugin>
+	<plugin>
+		<name>Quit</name>
+		<command>!quit</command>
+		<description>Quitter</description>
+		<security>
+			<whitelist>
+				<user>tonton</user>
+			</whitelist>
+		</security>
+	</plugin>
+</plugins>

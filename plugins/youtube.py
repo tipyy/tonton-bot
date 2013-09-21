@@ -1,9 +1,9 @@
 # -*- coding: utf8 -*-
 
-from action import *
-import re, urllib2, json
+from plugin import *
+import re, urllib2, json, datetime, unicodedata
 
-class Youtube(Action):
+class Youtube(Plugin):
 	def recognize(self, data):
 
 		regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\ >]+)'
@@ -31,9 +31,7 @@ class Youtube(Action):
 			self.application.logger.debug("youtube error")
 
 		d = encoded_data['data']['duration']
-		import datetime
 		duration = str(datetime.timedelta(seconds=d))
 		title = "%s / %s / %s" % (encoded_data['data']['uploader'],encoded_data['data']['title'],duration)
-		import unicodedata
 		
 		return unicodedata.normalize('NFKD', title).encode('utf8','ignore')

@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
-from action import *
+from plugin import *
 
-class About(Action):
+class About(Plugin):
 	def execute(self, data):
 		return '%s: un petit bot écrit par TontonDuPirox' % data.by
