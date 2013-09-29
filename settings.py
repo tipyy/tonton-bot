@@ -9,4 +9,4 @@ port = port
 channel = "#channel"
 pseudo = "tonton-bot"
 realname = "Python Bot " + VERSION
-logFile = "./tonton-bot.log"
+logFile = "./tonton-bot.log"owner = "tonton"

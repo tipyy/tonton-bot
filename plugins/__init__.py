@@ -5,5 +5,3 @@ from nsfw_gag import *
 from uptime import *
 from ping import *
 from youtube import *
-from reload_plugins import *
-from quit import *

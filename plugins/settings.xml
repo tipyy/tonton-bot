@@ -30,29 +30,4 @@
 		<command>!ping</command>
 		<description>pong</description>
 	</plugin>
-	<plugin>
-		<name>Help</name>
-		<command>!help</command>
-		<description>Affiche la liste des commandes</description>
-	</plugin>
-	<plugin>
-		<name>ReloadPlugins</name>
-		<command>!reload</command>
-		<description>Recharge les plugins de ce bot</description>
-		<security>
-			<whitelist>
-				<user>tonton</user>
-			</whitelist>
-		</security>
-	</plugin>
-	<plugin>
-		<name>Quit</name>
-		<command>!quit</command>
-		<description>Quitter</description>
-		<security>
-			<whitelist>
-				<user>tonton</user>
-			</whitelist>
-		</security>
-	</plugin>
 </plugins>

@@ -1,37 +1,36 @@
 # -*- coding: utf8 -*-
 
 from plugin import *
-import re, urllib2, json, datetime, unicodedata
+from helpers import http_helper
+
+import re, datetime, unicodedata
+
 
 class Youtube(Plugin):
-	def recognize(self, data):
+    def recognize(self, user, channel, msg):
+        # Checks plugin authorization
+        if not self.security.checkSecurity(user, channel):
+            return False
 
-		regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\ >]+)'
-		
-		m = re.findall(regex, data.msg)
+        # Checks if there is a youtube video match
+        regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\ >]+)'
+        m = re.findall(regex, msg)
+        if m:
+            self.data = m[0][7]
+            return True
 
-		if m:
-			self.data = m
-			self.application.logger.info("Youtube url detected %s" % m)
-			return True
-		return False
+        return False
 
-	def execute(self, data):
-		api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc' % self.data[0][7]
-		json_encoded = ""
-		
-		try:
-			req = urllib2.Request(api_url, headers={'User-Agent' : "Tonton bot"}) 
-			con = urllib2.urlopen(req)
-			json_encoded = con.read()
-					
-			encoded_data = json.loads(json_encoded)
-			self.application.logger.debug(encoded_data)
-		except urllib2.HTTPError, e:
-			self.application.logger.debug("youtube error")
+    def execute(self, data):
+        # Gets video information
+        api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc' % self.data
 
-		d = encoded_data['data']['duration']
-		duration = str(datetime.timedelta(seconds=d))
-		title = "%s / %s / %s" % (encoded_data['data']['uploader'],encoded_data['data']['title'],duration)
-		
-		return unicodedata.normalize('NFKD', title).encode('utf8','ignore')
+        encoded_data = http_helper.HttpHelper.get_json(api_url)
+
+        d = encoded_data['data']['duration']
+        duration = str(datetime.timedelta(seconds=d))
+        title = "%s / %s / %s" % (encoded_data['data']['uploader'], encoded_data['data']['title'], duration)
+
+        # Gets user name
+
+        return unicodedata.normalize('NFKD', title).encode('utf8', 'ignore')
