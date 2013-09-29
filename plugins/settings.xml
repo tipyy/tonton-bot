@@ -6,6 +6,12 @@
 		<description>Affiche les crédits</description>
 	</plugin>
 	<plugin>
+		<name>Dailymotion</name>
+		<file>dailymotion.py</file>
+		<command>dailymotion</command>
+		<description>Titre de la video</description>
+	</plugin>
+	<plugin>
 		<name>HttpError</name>
 		<command>httperror</command>
 		<description>Signale les erreurs HTTP des liens postés</description>
