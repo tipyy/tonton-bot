@@ -36,4 +36,11 @@
 		<command>!ping</command>
 		<description>pong</description>
 	</plugin>
+
+    <plugin>
+		<name>Vimeo</name>
+		<file>viemo.py</file>
+		<command>vimeo</command>
+		<description>Nom / Auteur / Duree de la video</description>
+	</plugin>
 </plugins>
