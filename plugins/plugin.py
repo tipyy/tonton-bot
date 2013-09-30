@@ -3,6 +3,7 @@
 
 class Plugin(object):
     def __init__(self, command, description, security):
+        self.data = None
         self.command = command
         self.description = description
         self.security = security

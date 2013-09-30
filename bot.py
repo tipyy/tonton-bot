@@ -5,13 +5,14 @@ from twisted.internet import reactor, protocol
 from pluginsFactory import PluginsFactory
 from helpers import irc_helper, exception_helper
 
-import logging
 import settings
 
 
 class TontonBot(irc.IRCClient):
 
     def __init__(self):
+    """The IRC bot himself"""
+        """Constructor setting nickname and plugin list"""
         self.nickname = settings.nickname
         self.plugin_list = PluginsFactory().create()
 
@@ -19,10 +20,12 @@ class TontonBot(irc.IRCClient):
         self.plugin_list = PluginsFactory().create()
 
     def connectionMade(self):
+        """On connection made we call parent function"""
         irc.IRCClient.connectionMade(self)
         self.factory.logger.info("Connected to server")
 
     def connectionLost(self, reason):
+        """On connection lost we call parent function"""
         self.factory.logger.info("Disconnected from server")
         irc.IRCClient.connectionLost(self, reason)
 
@@ -35,7 +38,7 @@ class TontonBot(irc.IRCClient):
     def joined(self, channel):
         """This will get called when the bot joins the channel."""
         self.factory.logger.info("Connected to chan %s" % self.factory.channel)
-        self.msg(self.factory.channel, settings.helloMessage)
+        self.msg(channel, settings.helloMessage)
 
     def privmsg(self, user, channel, msg):
         """This will get called when the bot receives a message."""
@@ -72,8 +75,8 @@ class TontonBot(irc.IRCClient):
 
 
 class TontonBotFactory(protocol.ClientFactory):
-    """A factory for TontonBots.
-
+    """
+    A factory for TontonBots.
     A new protocol instance will be created each time we connect to the server.
     """
 
