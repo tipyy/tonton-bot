@@ -6,13 +6,13 @@ from xml.etree import ElementTree
 
 class PluginsFactory(object):
 
-    def create(self):
+    def create(self, config_file):
         plugin_list = []
 
         module = __import__("plugins")
         reload(module)
 
-        document = ElementTree.parse("plugins/settings.xml")
+        document = ElementTree.parse(config_file)
         for pluginNode in document.findall("plugin"):
             name = pluginNode.find("name").text.encode("utf-8")
 #            file = pluginNode.find("file").text.encode("utf-8")
