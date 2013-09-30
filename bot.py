@@ -9,15 +9,16 @@ import settings
 
 
 class TontonBot(irc.IRCClient):
-
-    def __init__(self):
     """The IRC bot himself"""
+    def __init__(self, channel):
         """Constructor setting nickname and plugin list"""
         self.nickname = settings.nickname
-        self.plugin_list = PluginsFactory().create()
+        self.plugin_list = PluginsFactory().create(settings.pluginConfigFile)
+        self.channel = channel
 
     def reloadPlugins(self):
-        self.plugin_list = PluginsFactory().create()
+        """Reloading plugins configuration"""
+        self.plugin_list = PluginsFactory().create(settings.pluginConfigFile)
 
     def connectionMade(self):
         """On connection made we call parent function"""
@@ -33,7 +34,7 @@ class TontonBot(irc.IRCClient):
 
     def signedOn(self):
         """Called when bot has succesfully signed on to server."""
-        self.join(self.factory.channel)
+        self.join(self.channel)
 
     def joined(self, channel):
         """This will get called when the bot joins the channel."""
@@ -86,7 +87,7 @@ class TontonBotFactory(protocol.ClientFactory):
         self.running = True
 
     def buildProtocol(self, addr):
-        p = TontonBot()
+        p = TontonBot(self.channel)
         p.factory = self
         return p
 
