@@ -11,7 +11,6 @@ from plugin import *
 from about import *
 from dailymotion import *
 from http_error import *
-from help import *
 from nsfw_gag import *
 from ping import *
 from vimeo import *

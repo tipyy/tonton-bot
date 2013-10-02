@@ -7,7 +7,7 @@ from twisted.internet import reactor
 from bot import TontonBotFactory
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # create logger
     logger = logging.getLogger("TontonBotLog")
     logger.setLevel(logging.DEBUG)

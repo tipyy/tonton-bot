@@ -72,7 +72,8 @@ class TontonBot(irc.IRCClient):
                             self.factory.logger.info("Sending message to %s : %s" % (channel, line))
                             self.msg(channel, line)
             except Exception:
-                exception_helper.ExceptionHelper.write_traceback('Error on plugin %s' % action.command, logger)
+                exception_helper.ExceptionHelper.write_traceback("Error on plugin %s"
+                                                                 % (action.command, self.factory.logger))
 
 
 class TontonBotFactory(protocol.ClientFactory):
