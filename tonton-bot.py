@@ -1,10 +1,10 @@
 # -*- coding: utf8 -*-
 
-import settings
-import logging
-
 from twisted.internet import reactor
-from bot import TontonBotFactory
+from core.bot import TontonBotFactory
+
+import logging
+import settings
 
 
 if __name__ == "__main__":

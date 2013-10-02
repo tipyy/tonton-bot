@@ -1,7 +1,8 @@
 # -*- coding: utf8 -*-
 
-from security import *
 from xml.etree import ElementTree
+
+from core.security import *
 
 
 class PluginsFactory(object):

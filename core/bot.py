@@ -2,7 +2,7 @@
 
 from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol
-from pluginsFactory import PluginsFactory
+from core.pluginsFactory import PluginsFactory
 from helpers import irc_helper, exception_helper
 
 import settings
@@ -99,6 +99,7 @@ class TontonBotFactory(protocol.ClientFactory):
             connector.connect()
 
     def clientConnectionFailed(self, connector, reason):
+        """On connection failed"""
         self.logger.error("connection failed.")
         reactor.stop()
 
