@@ -10,3 +10,4 @@ channel = "#channel"
 pseudo = "tonton-bot"
 realname = "Python Bot " + VERSION
 logFile = "./tonton-bot.log"owner = "tonton"
+pluginConfigFile = "plugins/settings.xml"
