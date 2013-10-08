@@ -50,7 +50,7 @@ class TontonBot(irc.IRCClient):
         user = irc_helper.IrcHelper.extract_nickname(user)
         log.msg("message from %s to %s : %s" % (user, channel, msg))
 
-        if (channel == self.nickname or msg.startswith(self.nickname + ":")) and user != settings.owner:
+        if (channel == self.nickname or msg.startswith(self.nickname + ":")) and user != settings.owner and user != self.nickname:
             msg = "Désolé je ne suis qu'un bot, et je ne parle pas aux inconnus."
             self.msg(user, msg)
             return
