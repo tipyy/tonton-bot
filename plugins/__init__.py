@@ -8,10 +8,12 @@
 
 from plugin import *
 
-from about import *
-from dailymotion import *
-from http_error import *
-from nsfw_gag import *
-from ping import *
-from vimeo import *
-from youtube import *
+import about
+import dailymotion
+import http_error
+import lastfm
+import nsfw_gag
+import ping
+import vimeo
+import weather
+import youtube

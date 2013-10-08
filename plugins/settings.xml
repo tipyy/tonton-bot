@@ -3,6 +3,7 @@
 
 	<plugin>
 		<name>About</name>
+        <file>about</file>
 		<command>!about</command>
 		<description>Affiche les crédits</description>
 		<security>
@@ -14,38 +15,42 @@
 
 	<plugin>
 		<name>Dailymotion</name>
+        <file>dailymotion</file>
 		<command>dailymotion</command>
 		<description>Titre de la vidéo</description>
 	</plugin>
 
 	<plugin>
 		<name>HttpError</name>
+        <file>http_error</file>
 		<command>httperror</command>
 		<description>Signale les erreurs HTTP des liens postés</description>
 	</plugin>
 
 	<plugin>
 		<name>Youtube</name>
+        <file>youtube</file>
 		<command>youtube</command>
 		<description>Nom / Auteur / Durée de la vidéo</description>
 	</plugin>
 
 	<plugin>
 		<name>NSFWGag</name>
-		<file>nsfw_gag.py</file>
+        <file>nsfw_gag</file>
 		<command>nsfw_gag</command>
 		<description>Signale les posts 9gag NSFW</description>
 	</plugin>
 
 	<plugin>
 		<name>Ping</name>
-		<file>ping.py</file>
+		<file>ping</file>
 		<command>!ping</command>
 		<description>pong</description>
 	</plugin>
 
     <plugin>
 		<name>Vimeo</name>
+        <file>vimeo</file>
 		<command>vimeo</command>
 		<description>Nom / Auteur / Duree de la video</description>
 	</plugin>
