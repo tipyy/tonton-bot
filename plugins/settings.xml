@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugins>
-
 	<plugin>
 		<name>About</name>
         <file>about</file>
@@ -12,47 +11,36 @@
 			</whitelist>
 		</security>
 	</plugin>
-
 	<plugin>
 		<name>Dailymotion</name>
         <file>dailymotion</file>
-		<command>dailymotion</command>
 		<description>Titre de la vidéo</description>
 	</plugin>
-
 	<plugin>
 		<name>HttpError</name>
         <file>http_error</file>
-		<command>httperror</command>
 		<description>Signale les erreurs HTTP des liens postés</description>
 	</plugin>
-
 	<plugin>
 		<name>Youtube</name>
         <file>youtube</file>
-		<command>youtube</command>
 		<description>Nom / Auteur / Durée de la vidéo</description>
 	</plugin>
-
 	<plugin>
 		<name>NSFWGag</name>
         <file>nsfw_gag</file>
-		<command>nsfw_gag</command>
 		<description>Signale les posts 9gag NSFW</description>
 	</plugin>
-
 	<plugin>
 		<name>Ping</name>
 		<file>ping</file>
 		<command>!ping</command>
 		<description>pong</description>
 	</plugin>
-
     <plugin>
 		<name>Vimeo</name>
         <file>vimeo</file>
-		<command>vimeo</command>
-		<description>Nom / Auteur / Duree de la video</description>
+		<description>Nom / Auteur / Durée de la video</description>
 	</plugin>
     <plugin>
 		<name>LastFM</name>
