@@ -54,4 +54,10 @@
 		<command>vimeo</command>
 		<description>Nom / Auteur / Duree de la video</description>
 	</plugin>
+    <plugin>
+		<name>LastFM</name>
+        <file>lastfm</file>
+		<command>!lastfm</command>
+		<description>!lastfm username</description>
+	</plugin>
 </plugins>

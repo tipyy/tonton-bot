@@ -12,7 +12,7 @@ class LastFM(Plugin):
         if not self.security.checkSecurity(user, channel):
             return False
 
-        if msg.startswith("!%s" % self.command):
+        if msg.startswith(self.command):
             self.data = msg.split(" ")
             return True
 
