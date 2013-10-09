@@ -3,7 +3,7 @@
 from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol
 from twisted.python import log
-from core.pluginsFactory import PluginsFactory
+from core.plugin_list_manager import PluginListManager
 from helpers import irc_helper
 
 import settings
@@ -14,14 +14,9 @@ class TontonBot(irc.IRCClient):
     def __init__(self, channel):
         """Constructor setting nickname and plugin list"""
         self.nickname = settings.nickname
-        self.plugin_list = None
-        self.reloadPlugins()
         self.channel = channel
-
-    def reloadPlugins(self):
-        """Reloading plugins configuration"""
         try:
-            self.plugin_list = PluginsFactory().create(settings.pluginConfigFile)
+            self.plugins_manager = PluginListManager(settings.pluginConfigFile)
         except:
             log.err()
 
@@ -45,6 +40,11 @@ class TontonBot(irc.IRCClient):
         """This will get called when the bot joins the channel."""
         log.msg("Connected to chan %s" % channel)
         self.msg(channel, settings.helloMessage)
+    def sendMessage(self, channel, msg):
+        if msg != "" and msg is not None:
+            for line in msg.split("\r\n"):
+                log.msg("Sending message to %s : %s" % (channel, line))
+                self.msg(channel, line)
 
     def privmsg(self, user, channel, msg):
         """This will get called when the bot receives a message."""
@@ -53,32 +53,26 @@ class TontonBot(irc.IRCClient):
         log.msg("message from %s to %s : %s" % (user, channel, msg))
 
         if (channel == self.nickname or msg.startswith(self.nickname + ":")) and user != settings.owner and user != self.nickname:
-            msg = "Désolé je ne suis qu'un bot, et je ne parle pas aux inconnus."
-            self.msg(user, msg)
+            self.sendMessage(channel, "Désolé je ne suis qu'un bot, et je ne parle pas aux inconnus.")
             return
 
         if msg == "!reload" and user == settings.owner:
-            log.msg("Reload plugins.")
-            self.msg(channel, "plugins rechargés.")
-            self.reloadPlugins()
-
-        if msg == "!quit" and user == settings.owner:
-            log.msg("Good bye.")
-            self.factory.running = False
-            self.msg(channel, settings.quitMessage)
-            self.quit(settings.quitMessage)
-
-        for action in self.plugin_list:
             try:
-                if action.recognize(user, channel, msg):
-                    log.msg("Action detected %s" % action.command)
-                    result = action.execute(msg)
-                    if result != "" and result is not None:
-                        for line in result.split("\r\n"):
-                            log.msg("Sending message to %s : %s" % (channel, line))
-                            self.msg(channel, line)
+                self.plugins_manager.reloadPlugins()
+                self.sendMessage(channel, "plugins rechargés.")
             except:
                 log.err()
+
+        if msg == "!quit" and user == settings.owner:
+            self.factory.running = False
+            self.sendMessage(channel, settings.quitMessage)
+            self.quit(settings.quitMessage)
+
+        try:
+            result = self.plugins_manager.parseMessage(user, channel, msg)
+            self.sendMessage(channel, result)
+        except:
+            log.err()
 
 
 class TontonBotFactory(protocol.ClientFactory):
