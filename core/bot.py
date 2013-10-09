@@ -14,6 +14,7 @@ class TontonBot(irc.IRCClient):
     def __init__(self, channel):
         """Constructor setting nickname and plugin list"""
         self.nickname = settings.nickname
+        self.plugin_list = None
         self.reloadPlugins()
         self.channel = channel
 
