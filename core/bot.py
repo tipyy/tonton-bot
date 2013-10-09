@@ -49,6 +49,7 @@ class TontonBot(irc.IRCClient):
     def privmsg(self, user, channel, msg):
         """This will get called when the bot receives a message."""
         user = irc_helper.IrcHelper.extract_nickname(user)
+        channel = irc_helper.IrcHelper.extract_sender(user, channel, settings.nickname)
         log.msg("message from %s to %s : %s" % (user, channel, msg))
 
         if (channel == self.nickname or msg.startswith(self.nickname + ":")) and user != settings.owner and user != self.nickname:
@@ -58,7 +59,7 @@ class TontonBot(irc.IRCClient):
 
         if msg == "!reload" and user == settings.owner:
             log.msg("Reload plugins.")
-            self.msg(user, "plugins rechargés.")
+            self.msg(channel, "plugins rechargés.")
             self.reloadPlugins()
 
         if msg == "!quit" and user == settings.owner:

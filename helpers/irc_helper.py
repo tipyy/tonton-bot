@@ -10,3 +10,11 @@ class IrcHelper(object):
             source = tmp[0]
 
         return source
+
+    @staticmethod
+    def extract_sender(user, channel, me):
+        sender = channel
+        if channel == me:
+            sender = user
+
+        return sender
