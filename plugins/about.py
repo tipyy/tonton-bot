@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from plugin import *
+from core.plugin import *
 
 
 class About(Plugin):

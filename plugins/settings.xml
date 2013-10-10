@@ -1,51 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugins>
-	<plugin>
-		<name>About</name>
+    <plugin>
+        <name>About</name>
         <file>about</file>
-		<command>!about</command>
-		<description>Affiche les crédits</description>
-		<security>
-			<whitelist>
-				<user>tonton</user>
-			</whitelist>
-		</security>
-	</plugin>
-	<plugin>
-		<name>Dailymotion</name>
+        <command>!about</command>
+        <description>Affiche les crédits</description>
+    </plugin>
+
+    <plugin>
+        <name>Dailymotion</name>
         <file>dailymotion</file>
-		<description>Titre de la vidéo</description>
-	</plugin>
-	<plugin>
-		<name>HttpError</name>
+        <description>Titre de la vidéo</description>
+        <security>
+            <events>
+                <event>PRIVMSG</event>
+            </events>
+        </security>
+    </plugin>
+    <plugin>
+        <name>HttpError</name>
         <file>http_error</file>
-		<description>Signale les erreurs HTTP des liens postés</description>
-	</plugin>
-	<plugin>
-		<name>Youtube</name>
+        <description>Signale les erreurs HTTP des liens postés</description>
+        <security>
+            <events>
+                <event>PRIVMSG</event>
+            </events>
+        </security>
+    </plugin>
+    <plugin>
+        <name>Youtube</name>
         <file>youtube</file>
-		<description>Nom / Auteur / Durée de la vidéo</description>
-	</plugin>
-	<plugin>
-		<name>NSFWGag</name>
+        <description>Nom / Auteur / Durée de la vidéo</description>
+        <security>
+            <events>
+                <event>PRIVMSG</event>
+            </events>
+        </security>
+    </plugin>
+    <plugin>
+        <name>NSFWGag</name>
         <file>nsfw_gag</file>
-		<description>Signale les posts 9gag NSFW</description>
-	</plugin>
-	<plugin>
-		<name>Ping</name>
-		<file>ping</file>
-		<command>!ping</command>
-		<description>pong</description>
-	</plugin>
+        <description>Signale les posts 9gag NSFW</description>
+        <security>
+            <events>
+                <event>PRIVMSG</event>
+            </events>
+        </security>
+    </plugin>
     <plugin>
-		<name>Vimeo</name>
+        <name>Ping</name>
+        <file>ping</file>
+        <command>!ping</command>
+        <description>pong</description>
+    </plugin>
+    <plugin>
+        <name>Vimeo</name>
         <file>vimeo</file>
-		<description>Nom / Auteur / Durée de la video</description>
-	</plugin>
+        <description>Nom / Auteur / Durée de la video</description>
+        <security>
+            <events>
+                <event>PRIVMSG</event>
+            </events>
+        </security>
+    </plugin>
     <plugin>
-		<name>LastFM</name>
+        <name>LastFM</name>
         <file>lastfm</file>
-		<command>!lastfm</command>
-		<description>!lastfm username</description>
+        <command>!lastfm</command>
+        <description>!lastfm username</description>
+        <security>
+            <events>
+                <event>PRIVMSG</event>
+            </events>
+        </security>
 	</plugin>
 </plugins>

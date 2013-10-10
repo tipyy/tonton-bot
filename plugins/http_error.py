@@ -1,16 +1,18 @@
 # -*- coding: utf8 -*-
 
-from plugin import *
-
 import re
 import urllib2
 
+from core.plugin import *
+
 
 class HttpError(Plugin):
-    def recognize(self, user, channel, msg):
-        if not self.security.checkSecurity(user, channel):
-            return False
+    def recognize(self, command, prefix, params):
+        # Checking authorizations
+        Plugin.recognize(self, command, prefix, params)
+        msg = irc_helper.IrcHelper.extract_message(params)
 
+        # Searching for regex
         # @see https://gist.github.com/uogbuji/705383
         regex = re.compile(
             ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:'
@@ -18,7 +20,6 @@ class HttpError(Plugin):
             ur'|[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019]))')
 
         m = re.findall(regex, msg)
-
         if not m:
             return False
         url = m[0][0]

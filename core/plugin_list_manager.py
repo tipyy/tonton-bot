@@ -2,6 +2,7 @@
 
 from xml.etree import ElementTree
 from core.security import *
+from helpers import irc_helper
 
 import re
 
@@ -37,16 +38,19 @@ class PluginListManager(object):
                 security.addToWhiteList(securityNode.text.encode("utf-8"))
             for securityNode in pluginNode.findall("security/blacklist/user"):
                 security.addToBlackList(securityNode.text.encode("utf-8"))
+            for eventNode in pluginNode.findall("security/events/event"):
+                security.addEvent(eventNode.text.encode("utf-8"))
 
             plugin = self.reimport("plugins.%s.%s" % (file_name, name))
             action = plugin(command, description, security)
             self.plugin_list.append(action)
 
-    def parseMessage(self, user, channel, msg):
+    def parseMessage(self, command, prefix, params):
         result = ""
 
         for action in self.plugin_list:
-            if action.recognize(user, channel, msg):
+            if action.recognize(command, prefix, params):
+                msg = irc_helper.IrcHelper.extract_message(params)
                 result = action.execute(msg)
 
         return result

@@ -15,31 +15,29 @@ class TontonBot(irc.IRCClient):
         """Constructor setting nickname and plugin list"""
         self.nickname = settings.nickname
         self.channel = channel
+        self.plugins_manager = []
         try:
             self.plugins_manager = PluginListManager(settings.pluginConfigFile)
         except:
             log.err()
 
-    def connectionMade(self):
-        """On connection made we call parent function"""
-        irc.IRCClient.connectionMade(self)
-        log.msg("Connected to server")
-
-    def connectionLost(self, reason):
-        """On connection lost we call parent function"""
-        log.msg("Disconnected from server")
-        irc.IRCClient.connectionLost(self, reason)
-
-    # callbacks for events
-
     def signedOn(self):
         """Called when bot has successfully signed on to server."""
         self.join(self.channel)
 
-    def joined(self, channel):
-        """This will get called when the bot joins the channel."""
-        log.msg("Connected to chan %s" % channel)
-        self.msg(channel, settings.helloMessage)
+    def handleCommand(self, command, prefix, params):
+        """
+        from super class
+        """
+        try:
+            result = self.plugins_manager.parseMessage(command, prefix, params)
+            channel = irc_helper.IrcHelper.extract_sender(prefix, params[0], settings.nickname)
+            self.sendMessage(channel, result)
+        except:
+            log.err()
+
+        irc.IRCClient.handleCommand(self, command, prefix, params)
+
     def sendMessage(self, channel, msg):
         if msg != "" and msg is not None:
             for line in msg.split("\r\n"):
@@ -68,19 +66,12 @@ class TontonBot(irc.IRCClient):
             self.sendMessage(channel, settings.quitMessage)
             self.quit(settings.quitMessage)
 
-        try:
-            result = self.plugins_manager.parseMessage(user, channel, msg)
-            self.sendMessage(channel, result)
-        except:
-            log.err()
-
 
 class TontonBotFactory(protocol.ClientFactory):
     """
     A factory for TontonBots.
     A new protocol instance will be created each time we connect to the server.
     """
-
     def __init__(self, channel):
         self.channel = channel
         self.running = True

@@ -1,18 +1,18 @@
 # -*- coding: utf8 -*-
 
-from plugin import *
-from helpers import http_helper
-
 import re
 import datetime
 import unicodedata
 
+from core.plugin import *
+from helpers import http_helper
+
 
 class Youtube(Plugin):
-    def recognize(self, user, channel, msg):
-        # Checks plugin authorization
-        if not self.security.checkSecurity(user, channel):
-            return False
+    def recognize(self, command, prefix, params):
+        # Checking authorizations
+        Plugin.recognize(self, command, prefix, params)
+        msg = irc_helper.IrcHelper.extract_message(params)
 
         # Checks if there is a youtube video match
         regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\ >]+)'

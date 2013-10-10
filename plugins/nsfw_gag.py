@@ -1,19 +1,21 @@
 # -*- coding: utf8 -*-
 
-from plugin import *
-from bs4 import BeautifulSoup
-
 import re
 import urllib2
 
+from bs4 import BeautifulSoup
+
+from core.plugin import *
+
 
 class NSFWGag(Plugin):
-    def recognize(self, user, channel, msg):
-        if not self.security.checkSecurity(user, channel):
-            return False
+    def recognize(self, command, prefix, params):
+        # Checking authorizations
+        Plugin.recognize(self, command, prefix, params)
+        msg = irc_helper.IrcHelper.extract_message(params)
 
+        # Searching for regex
         regex = '((http://|https://)*(www.)*9gag.com[a-zA-Z/0-9?=]*)'
-
         m = re.findall(regex, msg)
         if m:
             try:

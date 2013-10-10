@@ -6,8 +6,6 @@
 # @package plugins
 # @brief This package contains all plugins for the tonton-bot
 
-from plugin import *
-
 import about
 import dailymotion
 import http_error

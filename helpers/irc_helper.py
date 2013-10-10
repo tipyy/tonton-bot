@@ -18,3 +18,13 @@ class IrcHelper(object):
             sender = user
 
         return sender
+
+    @staticmethod
+    def extract_message(params):
+        msg = ""
+        if len(params) > 1:
+            msg = params[1]
+
+        return msg
+
+

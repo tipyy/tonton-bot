@@ -1,20 +1,20 @@
 # -*- coding: utf8 -*-
 
-from plugin import *
-from helpers import HttpHelper
-
 import re
 import unicodedata
 
+from core.plugin import *
+from helpers import HttpHelper
+
 
 class Dailymotion(Plugin):
-    def recognize(self, user, channel, msg):
+    def recognize(self, command, prefix, params):
+        # Checking authorizations
+        Plugin.recognize(self, command, prefix, params)
+        msg = irc_helper.IrcHelper.extract_message(params)
 
-        if not self.security.checkSecurity(user, channel):
-            return False
-
+        # Searching for regex
         regex = '(https?://)?(www.)?dailymotion.com\/((video|hub)\/)([a-zA-Z0-9]+)([\?\&"\'\ >_]?)'
-
         m = re.findall(regex, msg)
         if m:
             self.data = m[0][4]
