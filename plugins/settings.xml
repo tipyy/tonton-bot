@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugins>
     <plugin>
-        <name>About</name>
-        <file>about</file>
+        <name>Say</name>
+        <file>say</file>
+        <config>
+            <message>un petit bot écrit par Tonton duPirox</message>
+        </config>
         <command>!about</command>
         <description>Affiche les crédits</description>
     </plugin>
-
     <plugin>
         <name>Dailymotion</name>
         <file>dailymotion</file>
@@ -48,9 +50,12 @@
         </security>
     </plugin>
     <plugin>
-        <name>Ping</name>
-        <file>ping</file>
+        <name>Say</name>
+        <file>say</file>
         <command>!ping</command>
+        <config>
+            <message>pong</message>
+        </config>
         <description>pong</description>
     </plugin>
     <plugin>

@@ -3,6 +3,6 @@
 from core.plugin import *
 
 
-class About(Plugin):
+class Say(Plugin):
     def execute(self, data):
-        return 'un petit bot écrit par TontonDuPirox'
+        return self.config["message"]
