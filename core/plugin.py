@@ -4,9 +4,9 @@ from helpers import irc_helper
 
 
 class Plugin(object):
-    def __init__(self, command, description, security):
+    def __init__(self, command, description, config, security):
         self.data = None
-        self.config = None
+        self.config = config
         self.command = command
         self.description = description
         self.security = security

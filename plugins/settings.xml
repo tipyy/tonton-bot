@@ -67,6 +67,9 @@
         <name>LastFM</name>
         <file>lastfm</file>
         <command>!lastfm</command>
+        <config>
+            <api_key>98cba0b8b4b0a760145aff684a2f83c2</api_key>
+        </config>
         <description>!lastfm username</description>
         <security>
             <events>

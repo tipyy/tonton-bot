@@ -33,6 +33,12 @@ class PluginListManager(object):
                 command = pluginNode.find("command").text.encode("utf-8")
             description = pluginNode.find("description").text.encode("utf-8")
 
+            config = {}
+            for configNode in pluginNode.findall("config/*"):
+                index = configNode.tag
+                value = pluginNode.find("config/%s" % configNode.tag).text.encode("utf-8")
+                config[index] = value
+
             security = Security()
             for securityNode in pluginNode.findall("security/whitelist/user"):
                 security.addToWhiteList(securityNode.text.encode("utf-8"))
@@ -42,7 +48,7 @@ class PluginListManager(object):
                 security.addEvent(eventNode.text.encode("utf-8"))
 
             plugin = self.reimport("plugins.%s.%s" % (file_name, name))
-            action = plugin(command, description, security)
+            action = plugin(command, description, config, security)
             self.plugin_list.append(action)
 
     def parseMessage(self, command, prefix, params):

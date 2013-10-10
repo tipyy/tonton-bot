@@ -22,7 +22,7 @@ class LastFM(Plugin):
         if len(self.data) > 1:
             user = self.data[1]
 
-            api_url = 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&api_key=98cba0b8b4b0a760145aff684a2f83c2&format=json' % user
+            api_url = 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&api_key=%s&format=json' % (user, self.config["api_key"])
             encoded_data = http_helper.HttpHelper.get_json(api_url)
             most_recent = encoded_data["recenttracks"]["track"][0]
 
