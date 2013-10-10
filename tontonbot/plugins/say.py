@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from core.plugin import *
+from tontonbot.core.plugin import *
 
 
 class Say(Plugin):

@@ -3,7 +3,7 @@
 import re
 import urllib2
 
-from core.plugin import *
+from tontonbot.core.plugin import *
 
 
 class HttpError(Plugin):

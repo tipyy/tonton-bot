@@ -1,10 +1,10 @@
 # -*- coding: utf8 -*-
 
 from xml.etree import ElementTree
-from core.security import *
-from helpers import irc_helper
-
 import re
+
+from tontonbot.core.security import *
+from tontonbot.helpers import irc_helper
 
 
 class PluginListManager(object):
@@ -47,7 +47,7 @@ class PluginListManager(object):
             for eventNode in pluginNode.findall("security/events/event"):
                 security.addEvent(eventNode.text.encode("utf-8"))
 
-            plugin = self.reimport("plugins.%s.%s" % (file_name, name))
+            plugin = self.reimport("tontonbot.plugins.%s.%s" % (file_name, name))
             action = plugin(command, description, config, security)
             self.plugin_list.append(action)
 
@@ -60,7 +60,6 @@ class PluginListManager(object):
                 result = action.execute(msg)
 
         return result
-
 
     def reimport(self, full_path):
         """

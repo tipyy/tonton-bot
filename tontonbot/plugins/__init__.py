@@ -6,10 +6,4 @@
 # @package plugins
 # @brief This package contains all plugins for the tonton-bot
 
-import dailymotion
-import http_error
-import lastfm
-import nsfw_gag
-import vimeo
-import weather
-import youtube
+from tontonbot.plugins import weather, dailymotion, http_error, youtube, nsfw_gag, lastfm, vimeo

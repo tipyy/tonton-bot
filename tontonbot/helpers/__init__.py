@@ -6,5 +6,5 @@
 # @package helper
 # @brief This package contains all helpers for the tonton-bot
 
-from http_helper import *
-from irc_helper import *
+from tontonbot.helpers.http_helper import *
+from tontonbot.helpers.irc_helper import *

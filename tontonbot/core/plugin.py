@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from helpers import irc_helper
+from tontonbot.helpers import irc_helper
 
 
 class Plugin(object):

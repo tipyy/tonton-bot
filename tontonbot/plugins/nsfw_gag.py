@@ -5,7 +5,7 @@ import urllib2
 
 from bs4 import BeautifulSoup
 
-from core.plugin import *
+from tontonbot.core.plugin import *
 
 
 class NSFWGag(Plugin):

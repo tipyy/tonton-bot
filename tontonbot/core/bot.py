@@ -3,10 +3,9 @@
 from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol
 from twisted.python import log
-from core.plugin_list_manager import PluginListManager
-from helpers import irc_helper
-
-import settings
+from tontonbot import settings
+from tontonbot.core.plugin_list_manager import PluginListManager
+from tontonbot.helpers import irc_helper
 
 
 class TontonBot(irc.IRCClient):

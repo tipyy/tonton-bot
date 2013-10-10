@@ -81,5 +81,55 @@
                 <event>PRIVMSG</event>
             </events>
         </security>
-	</plugin>
+    </plugin>
+    <plugin>
+        <name>Weather</name>
+        <file>weather</file>
+        <command>!meteo</command>
+        <description>!meteo city_name</description>
+    </plugin>
+    <plugin>
+        <name>Say</name>
+        <file>say</file>
+        <config>
+            <message>Chaou les pixs</message>
+        </config>
+        <security>
+            <whitelist>
+                <user>OnoSendaiBot</user>
+            </whitelist>
+            <events>
+                <event>JOIN</event>
+            </events>
+        </security>
+        <description>Affiche un message lorsque l'on rejoint un chan</description>
+    </plugin>
+	<!--<plugin>
+		<name>Say</name>
+        <file>say</file>
+		<config>
+            <message>Désolé je ne suis qu'un bot, et je ne parle pas aux inconnus.</message>
+        </config>
+        <events>
+            <event>PRIVMSG</event>
+        </events>
+        <security>
+            <blacklist>
+                <user>tonton</user>
+                <user>free-vitry.fr.eu.evolu.net</user>
+            </blacklist>
+        </security>
+        <description>Affiche un message lorsque quelqu'un veut parler au bot</description>
+	</plugin>-->
+    <plugin>
+        <name>NightMode</name>
+        <command>!nightmode</command>
+        <file>nightmode</file>
+        <description>Goto dodo</description>
+        <security>
+            <whitelist>
+                <user>tonton</user>
+            </whitelist>
+        </security>
+    </plugin>
 </plugins>

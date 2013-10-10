@@ -3,8 +3,8 @@
 import re
 import unicodedata
 
-from core.plugin import *
-from helpers import HttpHelper
+from tontonbot.core.plugin import *
+from tontonbot.helpers import HttpHelper
 
 
 class Dailymotion(Plugin):

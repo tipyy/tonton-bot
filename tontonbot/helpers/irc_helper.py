@@ -26,5 +26,3 @@ class IrcHelper(object):
             msg = params[1]
 
         return msg
-
-

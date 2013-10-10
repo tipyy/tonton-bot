@@ -2,8 +2,8 @@
 
 import unicodedata
 
-from core.plugin import *
-from helpers import http_helper
+from tontonbot.core.plugin import *
+from tontonbot.helpers import http_helper
 
 
 class LastFM(Plugin):
