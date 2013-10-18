@@ -18,6 +18,8 @@ setup(
     author_email='onclebobs@gmail.com',
     url='https://github.com/tontonDuPirox/tonton-bot',
     license=license,
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=find_packages(exclude=('tests', 'docs')),
+    test_suite='tests'
 )
+
 
