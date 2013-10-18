@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugins>
+    <plugin>
+        <name>Say</name>
+        <file>say</file>
+        <!--<config>
+            <message>Hello</message>
+        </config>
+        <security>
+            <whitelist>
+                <user>toto</user>
+            </whitelist>
+            <events>
+                <event>JOIN</event>
+            </events>
+        </security>-->
+        <description>Test plugin</description>
+    </plugin>
+</plugins>

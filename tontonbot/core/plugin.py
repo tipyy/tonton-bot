@@ -20,4 +20,4 @@ class Plugin(object):
         return False
 
     def execute(self, data):
-        return
+        pass
