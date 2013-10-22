@@ -15,7 +15,7 @@ class Youtube(Plugin):
         msg = irc_helper.IrcHelper.extract_message(params)
 
         # Checks if there is a youtube video match
-        regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\ >]+)'
+        regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\#\ >]+)'
         m = re.findall(regex, msg)
         if m:
             self.data = m[0][7]
