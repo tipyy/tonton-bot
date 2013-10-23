@@ -47,3 +47,6 @@ class TestYoutube(TestCase):
         self.assertEqual(plugin.recognize("PRIVMSG", "toto", ["toto", "http://youtu.be/0zM3nApSvMg"]),
                          True)
         self.assertEqual(plugin.data, '0zM3nApSvMg')
+
+        self.assertEqual(plugin.recognize("PRIVMSG", "toto", ["toto", "pong"]),
+                         False)
