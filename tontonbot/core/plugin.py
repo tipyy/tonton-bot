@@ -4,7 +4,8 @@ from tontonbot.helpers import irc_helper
 
 
 class Plugin(object):
-    def __init__(self, command, description, config, security):
+    def __init__(self, name, command, description, config, security):
+        self.name = name
         self.data = None
         self.config = config
         self.command = command

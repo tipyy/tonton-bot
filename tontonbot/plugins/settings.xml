@@ -96,7 +96,7 @@
         </config>
         <security>
             <whitelist>
-                <user>OnoSendaiBot</user>
+                <user>tonton-bot</user>
             </whitelist>
             <events>
                 <event>JOIN</event>

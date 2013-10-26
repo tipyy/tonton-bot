@@ -46,9 +46,9 @@ class PluginListManager(object):
                 security.addToBlackList(securityNode.text.encode("utf-8"))
             for eventNode in pluginNode.findall("security/events/event"):
                 security.addEvent(eventNode.text.encode("utf-8"))
-
-            plugin = self.reimport("tontonbot.plugins.%s.%s" % (file_name, name))
-            action = plugin(command, description, config, security)
+            print file_name
+            plugin = self.reimport("tontonbot.plugins.%s" % file_name)
+            action = plugin(name, command, description, config, security)
             self.plugin_list.append(action)
 
     def parseMessage(self, command, prefix, params):
