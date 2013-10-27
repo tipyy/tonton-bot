@@ -6,7 +6,7 @@ from tontonbot.core.security import Security
 class TestYoutube(TestCase):
     def test_recognize(self):
         security = Security()
-        plugin = Youtube(None, "A test", {}, security)
+        plugin = Youtube("Youtube Plugin", None, "A test", {}, security)
 
         self.assertEqual(plugin.recognize("PRIVMSG", "toto", ["toto",
                                                               "https://www.youtube.com/watch?v=1H5loYi6wVc&feature=youtube_gdata_player"]),

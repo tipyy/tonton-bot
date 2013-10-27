@@ -3,14 +3,15 @@
 import unicodedata
 
 from tontonbot.core.plugin import *
-from tontonbot.helpers import http_helper
+from tontonbot.helpers import HttpHelper
+from tontonbot.helpers import IrcHelper
 
 
 class LastFM(Plugin):
     def recognize(self, command, prefix, params):
         # Checking authorizations
         Plugin.recognize(self, command, prefix, params)
-        msg = irc_helper.IrcHelper.extract_message(params)
+        msg = IrcHelper.extract_message(params)
 
         if msg.startswith(self.command):
             self.data = msg.split(" ")
@@ -23,7 +24,7 @@ class LastFM(Plugin):
             user = self.data[1]
 
             api_url = 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=%s&api_key=%s&format=json' % (user, self.config["api_key"])
-            encoded_data = http_helper.HttpHelper.get_json(api_url)
+            encoded_data = HttpHelper.get_json(api_url)
             most_recent = encoded_data["recenttracks"]["track"][0]
 
             title = "Derniere chanson ecoutee par %s : %s - %s" % (user, most_recent["artist"]["#text"], most_recent["name"])

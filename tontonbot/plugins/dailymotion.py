@@ -5,13 +5,14 @@ import unicodedata
 
 from tontonbot.core.plugin import *
 from tontonbot.helpers import HttpHelper
+from tontonbot.helpers import IrcHelper
 
 
 class Dailymotion(Plugin):
     def recognize(self, command, prefix, params):
         # Checking authorizations
         Plugin.recognize(self, command, prefix, params)
-        msg = irc_helper.IrcHelper.extract_message(params)
+        msg = IrcHelper.extract_message(params)
 
         # Searching for regex
         regex = '(https?://)?(www.)?dailymotion.com\/((video|hub)\/)([a-zA-Z0-9]+)([\?\&"\'\ >_]?)'

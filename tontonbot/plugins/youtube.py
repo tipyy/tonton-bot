@@ -5,14 +5,15 @@ import datetime
 import unicodedata
 
 from tontonbot.core.plugin import *
-from tontonbot.helpers import http_helper
+from tontonbot.helpers import HttpHelper
+from tontonbot.helpers import IrcHelper
 
 
 class Youtube(Plugin):
     def recognize(self, command, prefix, params):
         # Checking authorizations
         Plugin.recognize(self, command, prefix, params)
-        msg = irc_helper.IrcHelper.extract_message(params)
+        msg = IrcHelper.extract_message(params)
 
         # Checks if there is a youtube video match
         regex = '(http(s)?://)?(www.)?(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?\&"\'\#\ >]+)'
@@ -27,7 +28,7 @@ class Youtube(Plugin):
         # Gets video information
         api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc' % self.data
 
-        encoded_data = http_helper.HttpHelper.get_json(api_url)
+        encoded_data = HttpHelper.get_json(api_url)
 
         d = encoded_data['data']['duration']
         duration = str(datetime.timedelta(seconds=d))
