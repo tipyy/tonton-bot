@@ -13,6 +13,8 @@ class Plugin(object):
         self.security = security
 
     def recognize(self, command, prefix, params):
+        self.data = None
+
         user = irc_helper.IrcHelper.extract_nickname(prefix)
         msg = irc_helper.IrcHelper.extract_message(params)
 

@@ -23,22 +23,22 @@ class HttpError(Plugin):
         m = re.findall(regex, msg)
         if not m:
             return False
-        url = m[0][0]
-
-        try:
-            req = urllib2.Request(url, headers={'User-Agent': "Tonton bot"})
-            con = urllib2.urlopen(req)
-            con.read()
-
-            return False
-        except urllib2.HTTPError, e:
-            self.data = "%s retourne une erreur %s" % (url, e.code)
-        except urllib2.URLError, e:
-            self.data = "je n'ai pas pu attendre l'url %s : %s" % (url, e.reason)
-        except ValueError, e:
-            return False
+        self.data = m[0][0]
 
         return True
 
     def execute(self, data):
-        return self.data
+        message = None
+
+        try:
+            req = urllib2.Request(self.data, headers={'User-Agent': "Tonton bot"})
+            con = urllib2.urlopen(req)
+            con.read()
+        except urllib2.HTTPError, e:
+            message = "%s retourne une erreur %s" % (self.data, e.code)
+        except urllib2.URLError, e:
+            message = "je n'ai pas pu attendre l'url %s : %s" % (self.data, e.reason)
+        except ValueError:
+            return
+
+        return message
