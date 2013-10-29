@@ -86,6 +86,8 @@ class TontonBotFactory(protocol.ClientFactory):
         if self.running:
             log.err("reconnecting...")
             connector.connect()
+        else:
+            reactor.stop()
 
     def clientConnectionFailed(self, connector, reason):
         """On connection failed"""
