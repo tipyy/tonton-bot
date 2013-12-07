@@ -39,10 +39,10 @@ Example:
         <config>                           <!-- The configuration for the plugin (depending on the plugin) -->
             <message>Hello.</message>
         </config>
-        <events>                           <!-- irc event list triggering this plugin (mandatory) -->
-            <event>JOIN</event>
-        </events>
         <security>
+            <events>                       <!-- irc event list triggering this plugin (all events if blank) -->
+                <event>JOIN</event>
+            </events>
             <whitelist>                    <!-- user list allowed for this command (all users if blank) -->
                 <user>toto</user>
             </whitelist>
