@@ -32,8 +32,7 @@ class HttpError(Plugin):
 
         try:
             req = urllib2.Request(self.data, headers={'User-Agent': "Tonton bot"})
-            con = urllib2.urlopen(req)
-            con.read()
+            urllib2.urlopen(req)
         except urllib2.HTTPError, e:
             message = "%s retourne une erreur %s" % (self.data, e.code)
         except urllib2.URLError, e:
