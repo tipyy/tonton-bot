@@ -26,14 +26,15 @@ class Youtube(Plugin):
 
     def execute(self, data):
         # Gets video information
-        api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=jsonc' % self.data
-
+        api_url = 'https://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=json' % self.data
         encoded_data = HttpHelper.get_json(api_url)
 
-        d = encoded_data['data']['duration']
+        # Gets the infos from json
+        d = int(encoded_data['entry']['media$group']['yt$duration']['seconds'])
         duration = str(datetime.timedelta(seconds=d))
-        title = "%s / %s / %s" % (encoded_data['data']['uploader'], encoded_data['data']['title'], duration)
-
-        # Gets user name
+        author = encoded_data['entry']['author'][0]['name']['$t']
+        vid_title = encoded_data['entry']['title']['$t']
+        # Build return string
+        title = "%s / %s / %s" % (author, vid_title, duration)
 
         return unicodedata.normalize('NFKD', title).encode('utf8', 'ignore')
