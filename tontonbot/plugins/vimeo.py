@@ -19,7 +19,6 @@ class Vimeo(Plugin):
         regex = '(http(s)?://)?(www.)?vimeo\.com/(\w*/)*(\d+)'
         m = re.findall(regex, msg)
         if m:
-            print m
             self.data = m[0][4]
             return True
 

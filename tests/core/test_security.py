@@ -10,19 +10,19 @@ class TestSecurity(TestCase):
         self.security.addToBlackList('toto')
         expected = ['toto']
 
-        self.assertEqual(self.security.blackList, expected)
+        self.assertEqual(self.security.black_list, expected)
 
     def test_addToWhiteList(self):
         self.security.addToWhiteList('toto')
         expected = ['toto']
 
-        self.assertEqual(self.security.whiteList, expected)
+        self.assertEqual(self.security.white_list, expected)
 
     def test_addEvent(self):
         self.security.addEvent('JOIN')
         expected = ['JOIN']
 
-        self.assertEqual(self.security.events, expected)
+        self.assertEqual(self.security.event_list, expected)
 
     def test_checkSecurity(self):
         self.security = Security()
