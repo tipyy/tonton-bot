@@ -28,13 +28,32 @@ class TontonBot(irc.IRCClient):
         """
         from super class
         """
-        try:
-            result = self.plugins_manager.parseMessage(command, prefix, params)
-            channel = irc_helper.IrcHelper.extract_sender(prefix, params[0], settings.nickname)
-            self.sendMessage(channel, result)
-        except:
-            log.err()
+            try:
+                msg = irc_helper.IrcHelper.extract_message(params)
+                user = irc_helper.IrcHelper.extract_nickname(prefix)
+                channel = irc_helper.IrcHelper.extract_sender(user, params[0], settings.nickname)
 
+                log.msg("Message from %s to %s : %s" % (user, channel, msg))
+
+                result = self.plugins_manager.parseMessage(command, prefix, params)
+                self.sendMessage(channel, result)
+
+                if (channel == self.nickname or msg.startswith(self.nickname + ":")) and user != settings.owner and user != self.nickname:
+                    self.sendMessage(channel, "Désolé je ne suis qu'un bot, et je ne parle pas aux inconnus.")
+                    return
+
+                if msg == "!reload" and user == settings.owner:
+                    self.plugins_manager.reloadPlugins()
+                    self.sendMessage(channel, "plugins rechargés.")
+
+                if msg == "!quit" and user == settings.owner:
+                    self.factory.running = False
+                    self.sendMessage(channel, settings.quitMessage)
+                    self.quit(settings.quitMessage)
+                if msg == "!help" and user == settings.owner:
+                    self.sendMessage(channel, self.plugins_manager.pluginsHelp())
+            except:
+                log.err()
         irc.IRCClient.handleCommand(self, command, prefix, params)
 
     def sendMessage(self, channel, msg):
@@ -42,29 +61,6 @@ class TontonBot(irc.IRCClient):
             for line in msg.split("\r\n"):
                 log.msg("Sending message to %s : %s" % (channel, line))
                 self.msg(channel, line)
-
-    def privmsg(self, user, channel, msg):
-        """This will get called when the bot receives a message."""
-        user = irc_helper.IrcHelper.extract_nickname(user)
-        channel = irc_helper.IrcHelper.extract_sender(user, channel, settings.nickname)
-        log.msg("message from %s to %s : %s" % (user, channel, msg))
-
-        if (channel == self.nickname or msg.startswith(self.nickname + ":")) and user != settings.owner and user != self.nickname:
-            self.sendMessage(channel, "Désolé je ne suis qu'un bot, et je ne parle pas aux inconnus.")
-            return
-
-        if msg == "!reload" and user == settings.owner:
-            try:
-                self.plugins_manager.reloadPlugins()
-                self.sendMessage(channel, "plugins rechargés.")
-            except:
-                log.err()
-
-        if msg == "!quit" and user == settings.owner:
-            self.factory.running = False
-            self.sendMessage(channel, settings.quitMessage)
-            self.quit(settings.quitMessage)
-
 
 class TontonBotFactory(protocol.ClientFactory):
     """
