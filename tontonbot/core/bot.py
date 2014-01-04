@@ -14,7 +14,8 @@ class TontonBot(irc.IRCClient):
         """Constructor setting nickname and plugin list"""
         self.nickname = settings.nickname
         self.channel = channel
-        self.plugins_manager = []
+        self.plugins_manager = None
+        self.connected = False
         try:
             self.plugins_manager = PluginListManager(settings.pluginConfigFile)
         except:
@@ -23,11 +24,13 @@ class TontonBot(irc.IRCClient):
     def signedOn(self):
         """Called when bot has successfully signed on to server."""
         self.join(self.channel)
+        self.connected = True
 
     def handleCommand(self, command, prefix, params):
         """
         from super class
         """
+        if self.connected is True:
             try:
                 msg = irc_helper.IrcHelper.extract_message(params)
                 user = irc_helper.IrcHelper.extract_nickname(prefix)
